@@ -1,7 +1,7 @@
 import fasttext
 
 # Train the fastText model using the training data with hierarchical softmax
-model = fasttext.train_supervised(input='data/imdb_fasttext_train.txt', epoch=25, wordNgrams=2, loss='hs')
+model = fasttext.train_supervised(input='data/imdb_fasttext_train.txt', epoch=25, loss='hs')
 
 # Save the trained model to the 'models' folder
 model.save_model('models/imdb_model_hs.bin')
