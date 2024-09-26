@@ -1,15 +1,12 @@
-from sklearn.model_selection import train_test_split
 import pandas as pd
 
-# Load IMDb dataset
+# Load IMDb dataset (assuming it's a CSV with 'review' and 'sentiment' columns)
 df = pd.read_csv('data/IMDb Movie Reviews Dataset.csv')
 
-# Add '__label__' prefix to the sentiment column
+# Create a new column where we add __label__ prefix to sentiment
 df['label'] = df['sentiment'].apply(lambda x: '__label__' + x)
 
-# Split the data into training and testing sets (80% train, 20% test)
-train, test = train_test_split(df, test_size=0.2, random_state=42)
-
-# Write the formatted train and test sets to text files for fastText
-train[['label', 'review']].to_csv('data/imdb_fasttext_train.txt', index=False, sep=' ', header=False)
-test[['label', 'review']].to_csv('data/imdb_fasttext_test.txt', index=False, sep=' ', header=False)
+# Create a file with the formatted data for fastText
+with open('imdb_fasttext.txt', 'w') as f:
+    for row in df[['label', 'review']].itertuples(index=False):
+        f.write(f"{row.label} {row.review}\n")
